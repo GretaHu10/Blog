@@ -58,7 +58,7 @@
 
 * 验证器[W3C CSS validator](https://jigsaw.w3.org/css-validator/)
 
-      
+  ​    
 
 2）资料（搜索关键字后加）
 
@@ -142,7 +142,7 @@ overflow:auto;      /*需要的时候显示滚动条*/
         * `box-sizing:border-box;`
         * Border才是盒子的边界，包含content、padding、border
 
-![1645584707286](E:%5CBlog%5CCSS.assets%5C1645584707286.png)
+![1645584707286](CSS.assets/1645584707286.png)
 
 * 举个栗子:两个都设置100px
 ```
@@ -1110,7 +1110,6 @@ animation:动画名 时长 过渡方式 延迟 次数 方向 填充模式 是否
 
 
 <hr/>
-
 
 
 
