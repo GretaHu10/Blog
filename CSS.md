@@ -289,7 +289,7 @@ float布局是一种浮动，会使其元素脱离文档流，需要**清除浮�
 
 ### 2.float实践
 
-仿网站主页布局：[Float][Rainbow (gretahu10.github.io)](https://gretahu10.github.io/css_demo/float.html)
+仿网站主页布局：[Float](https://gretahu10.github.io/css_demo/float.html)
 
 > 实践知识点：
 >
@@ -1112,8 +1112,6 @@ animation:动画名 时长 过渡方式 延迟 次数 方向 填充模式 是否
 
 
 <hr/>
-
-
 display:
 display属性有两个作用，一是定义元素的类型（块级元素或行内元素），规定元素的流式布局；二是控制其子元素的布局（grid或flex）
 
