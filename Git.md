@@ -191,33 +191,33 @@ $ git config --global core.autocrlf input
 $ ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-![1640706147099](E:%5CBlog%5CGit.assets%5C1640706147099.png)
+![1640706147099](Git.assets/1640706147099.png)
 
 按Enter键接受默认文件位置
 
-![1640706360908](E:%5CBlog%5CGit.assets%5C1640706360908.png)
+![1640706360908](Git.assets/1640706360908.png)
 
 可以输入安全密码，也可以不输，直接Enter，出现再输一遍密码
 
-![1640706481919](E:%5CBlog%5CGit.assets%5C1640706481919.png)
+![1640706481919](Git.assets/1640706481919.png)
 
 成功生成秘钥
 
-![1640706838428](E:%5CBlog%5CGit.assets%5C1640706838428.png)
+![1640706838428](Git.assets/1640706838428.png)
 
 打开公钥文件，复制公钥
 
-![1640707130731](E:%5CBlog%5CGit.assets%5C1640707130731.png)
+![1640707130731](Git.assets/1640707130731.png)
 
 
 
 登录到GitHub，点击右上角个人头像，进入settings，选择SSH and GPG keys，点击New SSH keys，
 
-![1640707318370](E:%5CBlog%5CGit.assets%5C1640707318370.png)
+![1640707318370](Git.assets/1640707318370.png)
 
 把复制的公钥填好，可以给对应的私钥端起个名字，添加就好了
 
-![1640707511349](E:%5CBlog%5CGit.assets%5C1640707511349.png)
+![1640707511349](Git.assets/1640707511349.png)
 
 运行以下代码，测试SSH是否能正常连接[帮助文档]([Testing your SSH connection - GitHub Docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection))
 
@@ -225,7 +225,7 @@ $ ssh-keygen -t ed25519 -C "your_email@example.com"
 $ ssh -T git@github.com
 ```
 
-![1640707838388](E:%5CBlog%5CGit.assets%5C1640707838388.png)
+![1640707838388](Git.assets/1640707838388.png)
 
 成功连接！！
 
@@ -241,7 +241,7 @@ $ ssh -T git@github.com
 
 一张图简单介绍Git工作机制及文件状态转换
 
-![工作区命令及文件状态转换](E:%5CBlog%5CGit.assets%5C%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.png)
+![工作区命令及文件状态转换](Git.assets/%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.png)
 
 
 
@@ -357,9 +357,9 @@ $ git branch -dr [remote/branch]
 
 ### 创建仓库
 
-![1640709446102](E:%5CBlog%5CGit.assets%5C1640709446102.png)
+![1640709446102](Git.assets/1640709446102.png)
 
-![1640837008173](E:%5CBlog%5CGit.assets%5C1640837008173.png)
+![1640837008173](Git.assets/1640837008173.png)
 
 ### 上传代码
 
@@ -418,23 +418,23 @@ $ git remote -v               #查看远程仓库的网址
 
 打开要删除的仓库，点击settings
 
-![1642655415938](E:%5CBlog%5CGit.assets%5C1642655415938.png)
+![1642655415938](Git.assets/1642655415938.png)
 
 划到最下面，
 
-![1642655504859](E:%5CBlog%5CGit.assets%5C1642655504859.png)
+![1642655504859](Git.assets/1642655504859.png)
 
 就在这个页面，一直下滑，这个页面下面还有内，一直往下划（我以为这里没有了，一直找不到要用的删除按钮）
 
-![1642655631398](E:%5CBlog%5CGit.assets%5C1642655631398.png)
+![1642655631398](Git.assets/1642655631398.png)
 
 还是在这个页面，找到Danger Zone，点击最后一个按钮，Delete this repository
 
-![1642655775613](E:%5CBlog%5CGit.assets%5C1642655775613.png)
+![1642655775613](Git.assets/1642655775613.png)
 
 打马赛克的都是我的仓库名，随便找一个复制到蓝色框里，点击红字就删除了，删除之后可以再账户的设置里找回来
 
-![1642656015875](E:%5CBlog%5CGit.assets%5C1642656015875.png)
+![1642656015875](Git.assets/1642656015875.png)
 
 # git高级操作
 

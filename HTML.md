@@ -290,28 +290,32 @@ table {
    ```
    >  一个点击之后什么都不会发生的a链接：
    >
-   > ```html
+   >  ```html
    >  <a href="javascript:;">空的伪协议</a> //访问一段空的JS代码，让页面什么都不做
+   >  ```
 >  <a href="">刷新</a>                  //点击a标签。页面会刷新
-   >  <a href="#">回到最顶部</a>            //点击a标签。页面会回滚到最顶部
-   > ```
-   
+>  <a href="#">回到最顶部</a>            //点击a标签。页面会回滚到最顶部
+>
+>  ```
+>  
+>  ```
 
-   
+
+
 * `mailto:邮箱 ` 跳转到邮件应用
-   
+  
       ```html
        <a href="mailto:123456@qq.com">发邮件给我吧</a>
       ```
-   
+  
    * `tel:手机号`  跳转到拨号页面，一般用于手机访问
-   
+  
       ```html
       <a href="tel:123 4567 7654">打电话给我吧</a>
       ```
-   
+  
       
-   
+  
 
 
 4. id
@@ -433,7 +437,7 @@ table {
     </table>
    ```
 
-![1641546332193](E:%5CBlog%5CHTML.assets%5C1641546332193.png)
+![1641546332193](HTML.assets/1641546332193.png)
 
 `table`标签内只能有`thead`、`tbody`、`tfoot`三个标签，`<tr>`table row表行;`<th>`table head表头；`<td>`table data单元格数据。
 
@@ -562,11 +566,7 @@ color、button、checkbox多选框、email、file可选一个文件，mulyiple�
 
 
 
-# 一些想法
 
-
-
-> ​        **HTML语义化**:关于HTML语义化，我的理解就是在前端的发展过程中，逐渐把table或者是div这种单一的标签更加丰富起来，不同的语境使用不同的标签：h就是heading，顾名思义就是标题，h1一级标题，h2二级标题等；文章那就使用article标签，告诉浏览器我这就是一篇article；文章里面章节section；段落paragraph，太长了，就是p等等。html常用标签：除了上面那些，还有nav导航栏，aside侧边栏，button按钮，等等
 
 
 
