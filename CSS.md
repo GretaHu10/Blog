@@ -1102,7 +1102,7 @@ animation:动画名 时长 过渡方式 延迟 次数 方向 填充模式 是否
 
 ## 五、动画实践
 
-1. [transform配合transition过渡，添加hover制作跳动的红心](https://gretahu10.github.io/css_demo/teart01.html)
+1. [transform配合transition过渡，添加hover制作跳动的红心](https://gretahu10.github.io/css_demo/heart01.html)
 2. [animation跳动的心](https://gretahu10.github.io/css_demo/heart02.html)
 
 
