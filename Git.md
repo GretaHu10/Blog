@@ -531,13 +531,13 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 
 
-![1648985911109](E:%5CBlog%5CGit.assets%5C1648985911109.png)
+![1648985911109](Git.assets/1648985911109.png)
 
-![1648985931924](E:%5CBlog%5CGit.assets%5C1648985931924.png)
+![1648985931924](Git.assets/1648985931924.png)
 
-![1648985953086](E:%5CBlog%5CGit.assets%5C1648985953086.png)
+![1648985953086](Git.assets/1648985953086.png)
 
-![1648985984406](E:%5CBlog%5CGit.assets%5C1648985984406.png)
+![1648985984406](Git.assets/1648985984406.png)
 
 在解决冲突进行版本跳转时，发现在不同的版本后或跟着`(HEAD -> main, origin/main)`字样，有时两组一起，有时分开
 
