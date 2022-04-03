@@ -294,6 +294,8 @@ file/*.txt    #会忽略根目录下的.txt 但不包括子目录中的.txt文�
 
 > 点此[查看规则文档]([Git - gitignore Documentation (git-scm.com)](https://git-scm.com/docs/gitignore))
 >
+> 
+>
 > 常用的忽略文档有node_modules   .DS_Store    .idea   .vscode 等
 
 
@@ -435,6 +437,99 @@ $ git remote -v               #查看远程仓库的网址
 打马赛克的都是我的仓库名，随便找一个复制到蓝色框里，点击红字就删除了，删除之后可以再账户的设置里找回来
 
 ![1642656015875](Git.assets/1642656015875.png)
+
+
+
+# 解决冲突
+
+## 一、
+
+![1648972851078](Git.assets/1648972851078.png)
+
+To github.com:GretaHu10/Blog.git                                               
+
+ ! [rejected]      拒绝上传到GitHub对应  
+
+main -> main (fetch first)             请先获取（把远程内容拉取到本地）                
+
+error: failed to push some refs to 'github.com:GretaHu10/Blog.git'             错误信息：未能将一些更改推送到GitHub
+
+hint: Updates were rejected because the remote contains work that you do       
+
+hint: not have locally. This is usually caused by another repository pushing   
+
+hint: to the same ref. You may want to first integrate the remote changes      
+
+hint: (e.g., 'git pull ...') before pushing again.                             
+
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.     
+
+提示：更新被拒绝，因为远程仓库包含在本地没有的更改。这通常是由另一个仓库推送到相同的更改引起的。您可能需要先集成远程更改(例如，“gitpull……”)，然后再再次推送。详情请参见“git push --help”中的“Note about fast-forwards”。
+
+
+
+解决办法：
+
+* `git pull origin main ` 把远程origin仓库main分支拉取到本地
+
+* `git status` 查看冲突选项
+
+* 打开冲突文件找到>>>>>>      ========        <<<<<<<<包裹的代码就是冲突代码，解决冲突
+* `git add <文件名>`
+* `git commit ` 不需要加参数，不需要加文件名，否则会报错！！直接提交就会有默认提交信息
+
+![1648974989430](Git.assets/1648974989430.png)
+
+## 二、
+
+![1648974075078](Git.assets/1648974075078.png)
+
+分支名后有MERGING字样提示需要合并冲突
+
+
+
+## 三、
+
+![1648974418774](Git.assets/1648974418774.png)
+
+On branch main    在main分支上
+
+Your branch and 'origin/main' have diverged,
+and have 2 and 3 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+你的分支和“origin/main”已经分化了，
+并且分别有2个和3个不同的提交。
+（使用“gitpull”将远程分支合并到您的分支中）
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+您有未合并的路径。
+（修复冲突并运行“git commit”）
+（使用“git commit --abort”来中止合并）
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   ***.md  表示该文件在远程和本地都进行修改了
+
+未合并的路径：
+(使用“gitadd<file>...”来标记提交)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+没有更改的添加提交（使用“git add”和/或“git commit -a”）
+
+
+
+* 解决方法：打开冲突的***.md文件，解决冲突后提交
+
+
+
+
+
+
 
 # git高级操作
 
