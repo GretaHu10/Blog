@@ -527,9 +527,35 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 
 
+### HEAD -> main, origin/main
 
 
 
+![1648985911109](E:%5CBlog%5CGit.assets%5C1648985911109.png)
+
+![1648985931924](E:%5CBlog%5CGit.assets%5C1648985931924.png)
+
+![1648985953086](E:%5CBlog%5CGit.assets%5C1648985953086.png)
+
+![1648985984406](E:%5CBlog%5CGit.assets%5C1648985984406.png)
+
+在解决冲突进行版本跳转时，发现在不同的版本后或跟着`(HEAD -> main, origin/main)`字样，有时两组一起，有时分开
+
+* `HEAD`不是最新版本，而是指向*当前*commit版本。通常，它是当前分支的最新版本，但不一定是。
+
+* `(HEAD -> main)`表示当前commit在main分支
+
+* `origin`远程仓库名，无含义
+
+* `main`分支名，无特殊含义
+
+* `(origin/main)`远程跟踪分支
+
+  指向远程拉取到的origin仓库中的main分支
+
+  如果你在本地的 `master` 分支做了一些工作，在同一段时间内有其他人推送提交并且更新了它的 `master` 分支，这就是说你们的提交历史已走向不同的方向。 即便这样，只要你保持不与 `origin` 服务器连接（并拉取数据），你的 `origin/master` 指针就不会移动。
+
+  [解释来源](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
 
 # git高级操作
 
