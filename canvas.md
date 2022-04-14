@@ -160,4 +160,11 @@ let isTouchDevice = 'ontouchstart' in document.documentElement
 
 ## 九、成品
 
-[canvas]()
+[canvas]([canvas (gretahu10.github.io)](https://gretahu10.github.io/canvas_demo/index.html))
+
+
+
+对于代码中提到的为什么要两次let x和y
+
+《知乎：方应杭——[我用了两个月的时间才理解 let](https://zhuanlan.zhihu.com/p/28140450)》
+
