@@ -557,6 +557,38 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
   [解释来源](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
 
+
+
+## 四、
+
+在提交时出现警告：
+
+warning： LF will be replaced by CRLF in 要提交的文件名.
+
+The file will have its original line endings in your working directory.
+
+警告：在中，LF将被CRLF替换要提交的文件名.
+
+该文件将在工作目录中保留其原始行尾。
+
+说明：工作目录中的文件的行尾是LF，但是这里在进入Git库之前，却将LF转换为CRLF。所以给出警告。该警告无伤大雅，因为在Git库中的该文件仍然以LF为行尾。
+
+去掉的方法：
+
+```bash
+$ git config core.autocrlf false
+
+
+//查看
+$ git config --get core.autocrlf
+```
+
+再重新提交就没有警告了
+
+
+
+
+
 # git高级操作
 
 ```bash

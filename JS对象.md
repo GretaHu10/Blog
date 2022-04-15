@@ -421,7 +421,7 @@ Object.assign(obj,{age:18,gender:'man'})
 
   ```js
   class Square{
-      static x = 1
+     // static x = 1
       width = 0
       constructor(width){
           this.width = width
@@ -441,6 +441,62 @@ Object.assign(obj,{age:18,gender:'man'})
   ```
 
   
+  
+  
+  
+  语法1：
+  
+  ```
+  class Person{
+      sayHi(name){}
+      // 等价于
+      sayHi: function(name){} 
+      // 注意，一般我们不在这个语法里使用箭头函数
+  }
+  //等价于
+  function Person(){}
+  Person.prototype.sayHi = function(name){}
+  ```
+  
+  语法2：注意冒号变成了等于号
+  
+  ```
+  class Person{
+    sayHi = (name)=>{} // 注意，一般我们不在这个语法里使用普通函数，多用箭头函数
+  }
+  // 等价于
+  function Person(){
+      this.sayHi = (name)=>{}
+  }
+  ```
+
+对象为什么要分类
+
+对象需要分类
+
+有很多对象拥有一样的属性和行为，需要把它们分为同一类，创建类似对象就很方便
+
+但是还有很多对象拥有其他的属性和行为
+
+所以就需要不同的分类
+
+比如 Array 、Function 
+
+Object创建出来的对象是最没特点的对象
+
+
+
+类是针对于对象的分类，有无数种
+
+常见的有Array、Function、Date、RegExp等
+
+
+
+
+
+
+
+
 
 ## 1. new
 
@@ -554,25 +610,9 @@ window.Function是由window.Function构造的
 
 
 
-对象需要分类
-
-有很多对象拥有一样的属性和行为，需要把它们分为同一类，创建类似对象就很方便
-
-但是还有很多对象拥有其他的属性和行为
-
-所以就需要不同的分类
-
-比如 Array 、Function 
-
-Object创建出来的对象是最没特点的对象
 
 
-
-类是针对于对象的分类，有无数种
-
-常见的有Array、Function、Date、RegExp等
-
-
+# 四、数组对象
 
 数组对象
 
@@ -598,6 +638,10 @@ JS的数组不是典型数组
 
 不能通过数字下标，而是通过字符串下标
 
+通过数字取到数组元素是因为JS会调用1.toString方法先变成字符串再穿进去
+
+arr[(1).toString()] ===  arr[1]
+
 这意味着可以有任何可以
 
 比如：
@@ -611,9 +655,9 @@ arr['xxx'] = 1
 
 
 
+## 创建数组
 
-
-定义一个数组
+创建一个数组
 
 ```js
 let arr = [1,2,3]
@@ -622,12 +666,12 @@ let arr = new Array(1,2,3) // 元素为1,2,3，是上一句的正规写法
 
 let arr = new Array(3)   //长度为3
 
-//合并两个数组，得到新数组
+//合并两个数组，得到新数组，原有的两个数组也存在
 arr1.concat(arr2)
 
-//截取一个数组的一部分
+//截取一个数组的一部分，变成一个新数组，并不改变原来的数组
 arr1.slice(1)//从第二个元素开始
-arr1.slice(0)  // 全部截取
+arr1.slice(0)  // 全部截取，复制一个数组
 ```
 
 JS只提供浅拷贝
@@ -636,13 +680,35 @@ JS只提供浅拷贝
 
 转化 
 
+使用字符串创建一个数组，split，分隔
+
 ```js
 let arr = '1,2,3'.split(',')
 
-let arr = '1,2,3'.split('')
+let arr = '1,2,3'.split('') //空字符串
 
-Array.from('123')
+Array.from('123')//把不是数组的东西尝试变成数组，从哪里得到一个数组，并不是都可以变成数组，要有一定的条件一个对象有0,1,2,3，这样的下标和length就可以变成数组
 ```
+
+
+
+
+
+
+
+```js
+Arrey.from(123)
+
+Arrey.from('123')
+
+Array.from(true)
+
+Array.fron({0:'a',1:'b',2:'c'})
+
+Array.fron({0:'a',1:'b',2:'c',length:3}) //这种从其他地方转化的数组没有继承数组的原型链，成为伪数组
+```
+
+ 
 
 
 
@@ -658,7 +724,42 @@ let divList = document.querySelectoyAll('div')
 
 
 
-稀疏数组
+```html
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+</body>
+```
+
+
+
+```js
+let divList = document.querySelectoyAll('div')
+console.log(divList)
+```
+
+会发现是数组的形式，但是点看并没有数组的方法，使用push、pop等数组方法会报错
+
+divList.push(4)
+
+
+
+只是创建了一个对象，没有构建数组的原型
+
+使用Array.from自己构建
+
+let divArray = Array.from(divList)
+
+再打印出结构就会有数组的原型链
+
+
+
+
+
+
+
+
 
 
 
@@ -672,9 +773,9 @@ let divList = document.querySelectoyAll('div')
 
 
 
-增删改查数组中的元素
+## 增删改查数组中的元素
 
-删
+### 删
 
 ```js
 let arr = ['a','b','c']
@@ -683,6 +784,12 @@ arr //[empty,'b','c']
 ```
 
 数组的长度并没有变
+
+这是对象的删除方法，
+
+稀疏数组 没有好处，只有bug
+
+长度比元素多
 
 
 
@@ -698,9 +805,15 @@ arr.length = 1
 
 
 
+以上两种方式不推荐
+
+
+
 删除头部元素
 
 arr.shift ()  // arr被修改，并返回被删元素     shift 提档
+
+shift不需要参数
 
 删除尾部元素
 
@@ -714,15 +827,27 @@ arr.splice(index,1,'x')   //并在删除位置添加‘x’
 
 arr.splice(index,1,'x','y')  //
 
+第一个参数是要开始删的元素的下标，
+
+第二个参数是要删除的元素的数量
+
+第三个及之后参数是在删除位置要添加的元素
+
+不删除在某个位置直接添加？？？
 
 
-查
+
+### 查
 
 查看所有属性名
+
+普通对象的方法不适用
 
 let arr = [1,2,3,4,5];arr.x = 'xxx'
 
 Object.keys(arr)
+
+Object.values(srr)
 
 for(let key in arr){
 
@@ -731,6 +856,10 @@ console.log(`${key}:${arr[key]}`)
 }
 
 
+
+
+
+数组遍历
 
 查看数字（字符串）属性名和值
 
@@ -750,7 +879,52 @@ console.log(`${index}:${item}`)
 
 也可以使用forEach 、 map等原型上的函数
 
+自己写个forEach  接受三个参数
 
+```js
+function forEach(array,fn){
+    for(let i=0;i<array.length;i++){
+        fn(array[i],i,array)
+    }
+}
+
+forEach(['a','b','c'],function(x,y,z){console.log(x,y,array)})
+```
+
+
+
+自己进行个优化
+
+function forEach(array){
+    for(let i=0;i<array.length;i++){
+        function fn(x,y,z){console.log(x,y,array)}
+        fn(array[i],i)
+    }
+}
+
+forEach(['a','b','c'])
+
+
+
+forEach用用for访问array的每一项
+
+对每一项调用fn(array[i],i,array)
+
+
+
+for和forEach区别
+
+for是个关键字，功能更强大
+
+后面是个块级作用域
+
+for里面有break和continue
+
+
+
+foreach只是个函数
+
+后面是个函数作用域
 
 
 
@@ -774,13 +948,17 @@ arr.find(item=>item%2 === 0)   //找第一个偶数
 
 arr.findIndex(item => item%2 === 0)// 找第一个偶数的索引
 
+find方法会返回第一个找到的元素
 
+findIndex 会返回定义个找到的元素的下标
 
 
 
 
 
 索引越界
+
+使用并不存在的索引
 
 arr[arr.length]  === undefined
 
@@ -800,9 +978,23 @@ for(let i= 0;i<=arr.length;i++){
 
 
 
-增
+
+
+
+
+
+
+### 增
+
+
 
 在尾部加元素
+
+(arr.x = 'x'  单个元素单独赋值)
+
+不推荐这样改，因为如果改一个较大的数字，就直接length也会变很大
+
+
 
 arr.push(newItem) //修改arr，返回新长度
 
@@ -820,19 +1012,37 @@ arr.splice(index,0,'x')
 
 arr.splice(index,0,'x','y')
 
+对已有的元素直接进行修改
+
+arr.[1] = 666
 
 
 
-
-改
+### 改
 
 反转顺序
 
-arr.reverse()
+arr.reverse()     //修改了原来的数组，并没有生成新的数组
+
+把字符串翻转
+
+let s = 'abcdef'
+
+s.split('').reverse().join('')
+
+换成数组，翻转，再换成字符串
+
+
 
 自定义顺序
 
+sort 没有参数时默认从小到大
+
+可以通过函数，给元素赋值，指定比较方法
+
 arr.sort((a,b)=> a-b)
+
+
 
 map   n变n
 
@@ -840,15 +1050,85 @@ filter   n变少
 
 reduce   n变1
 
+都会返回新数组，不改变原数组
+
+
+
+let arr = [1,2,3,4,5,6,7]
+
+arr.map(item => item*item)
+
+提供一一对应的映射关系
+
+
+
+arr.filter(item => item %2 === 0)   
+
+判断真假，真返回，假丢弃
+
+
+
+reduce 接受两个参数，第一个为函数，表示想要如何叠加，第二个位reduce的初始值
+
+arr.reduce((sum,item)=>{return sum+item},0)
+
+
+
+reduce替换map
+
+arr.reduce((result,item) => {return result.concat(item*item)},[])
+
+push 代替concat是什么结果
+
+reduce替换filter
+
+arr.reduce((result,item)=>result.concat(item %2 === 0 ? [] : item),[])
+
+arr.reduce((result,item)=>{
+
+if (item %2 === 0){
+
+return result
+
+}else {
+
+return result.concat(item)
+
+}
+
+},[])
+
+
+
 
 
 题目：
 
 1.数字变日期
 
+```
+let arr = [0,1,2,2,3,3,3,4,4,4,4,6]
+let arr2 = arr.map(补全代码)
+console.log(arr2) // ['周日', '周一', '周二', '周二', '周三', '周三', '周三', '周四', '周四', '周四', '周四','周六']
+```
+
 2.找出所有大于60分的成绩
 
-3.算出所有数字之和
+```
+let scores = [95,91,59,55,42,82,72,85,67,66,55,91]
+let scores2 = scores.filter(补全代码)
+console.log(scores2) //  [95,91,82,72,85,67,66, 91]
+```
+
+3.算出所有奇数之和
+
+```
+let scores = [95,91,59,55,42,82,72,85,67,66,55,91]
+let sum = scores.reduce((sum, n)=>{
+  补全代码
+},0)
+console.log(sum) // 奇数之和：598 
+```
 
 4.数据变换
 
@@ -872,6 +1152,20 @@ let arr = [
 ```
 
 
+
+```js
+arr.reduce((result,item) =>{
+    if(item.parent === null){
+        result.id = item.id
+        result['名称'] = item['名称']
+    }else{
+        result.children.push(item)
+        delete item.parent
+        item.children = null
+    }
+    return result
+},{id:null,children:[]})
+```
 
 
 
@@ -911,11 +1205,7 @@ forEach用for访问array的每一项
 
 
 
-
-
-
-
-函数对象
+## 五、函数对象
 
 定义一个函数
 
@@ -930,11 +1220,25 @@ function 函数名(形式参数1，形式参数2){
 
 匿名函数
 
-去掉函数名
+也叫函数表达式
+
+没有函数名，但是需要一个变量容纳它，
 
 ```js
 let a = function(x,y){return x+y}
 ```
+
+
+
+let a = function fn(x,y){return x+y}
+
+变量a 存储着函数fn的地址
+
+直接调用fn会报错
+
+因为函数的声明在等于号右边时，函数的作用域值在等号右边
+
+
 
 箭头函数
 
@@ -942,7 +1246,7 @@ let a = function(x,y){return x+y}
 let f1 = x => x*x
 let f2 = (x,y) => x+y   //圆括号不能省
 let f3 = (x,y) => {return x+y}   //花括号不能省
-let f4 = (x,y) => ({name:x,age:y})// 直接返回对象会出错，要加圆括号,不加圆括号会被认为是label代码块
+let f4 = (x,y) => ({name:x,age:y})// 直接返回对象会出错，要加圆括号,不加圆括号会被认为是label代码块，在字符串加引号呢？
 ```
 
 构造函数
@@ -951,23 +1255,7 @@ let f4 = (x,y) => ({name:x,age:y})// 直接返回对象会出错，要加圆括�
 let f = new function('x','y','return x+y')
 ```
 
-
-
-
-
-
-
-```js
-function fn(x,y){return x+y}
-
-let fn = function fn(x,y){return x+y}
-
-let fn = (x,y) => x+y
-
-let fn = new Function('x','y','return x+y')
-```
-
-
+不能用，什么原因？？？
 
 new function不管大小写都报错，什么鬼东西
 
@@ -1003,11 +1291,11 @@ fn保存了匿名函数的地址
 
 fn2()调用了匿名函数
 
-fn和fn2 斗志匿名函数的引用而已
+fn和fn2 都是匿名函数的引用而已
 
 真正的函数既不是fn也不是fn2
 
-
+  
 
 函数的要素
 
@@ -1111,11 +1399,17 @@ for(let i=0; i<6; i++){
 
 打印出0、1、2、3、4、5
 
+JS在for和let一起用的时候，每循环一次都会重新声明，多创建一个i
+
+这样setTimeout就失去作用了
+
+
+
 
 
 作用域
 
-每个函数都会默认穿件一个作用域
+每个函数都会默认创建一个作用域
 
 ```js
 function fn(){
@@ -1135,6 +1429,8 @@ console.log(a)
 ```
 
 a还是不存在
+
+因为let的作用域只在花括号里
 
 
 
@@ -1164,7 +1460,9 @@ f1()
 
 如果多个作用域有同名变量a，那么查找a的声明时，就向上取最近的作用域，简称就近原则
 
-查找a的过程与函数执行无关
+查找a的过程与函数执行无关     静态作用域
+
+相反的有词法作用域也叫动态作用域   
 
 但a的值与函数执行有关
 
@@ -1211,13 +1509,23 @@ add(1,2)
 
 其中x和y就是形参，调用add是，1和2是实际参数，会被赋值给x y
 
+
+
+值传递和地址传递：
+
+没有值和地址之分，不管是对象的地址，还是数值，统一按照内存图直接复制
+
+
+
+
+
 形参可认为是变量声明
 
 上面的代码近似定价于下面的代码
 
 ```js
 function add(){
-    var x = arguements[0]
+    var x = arguements[0]   //第0个参数
     var y = arguements[1]
     return x+y
 }
@@ -1238,6 +1546,8 @@ hi()
 
 没写return，所以返回值是undefined
 
+
+
 ```js
 function hi(){return console.log('hi')}
 hi()
@@ -1251,7 +1561,7 @@ hi()
 
 只有函数有返回值
 
-1+2的值为3，而不是1+2返回值是3
+1+2的值为3，而不是1+2没有返回值 
 
 
 
@@ -1362,11 +1672,13 @@ function fn(){
 
 fn(1,2,3)那么arguements就是[1,2,3]伪数组
 
+如果不给任何值，this默认指向window
+
 如何传this
 
 目前可以用fn.call(xxx,1,2,3)传this和arguements
 
-而且xxx会被自动转化成对象
+而且xxx会被自动转化成对象    xxx是this，1，2,3是arguements
 
 this是隐藏参数
 
@@ -1383,11 +1695,15 @@ let person = {
 }
 ```
 
+在声明一个函数的时候可以用一个变量得到这个对象的引用 ，所以person不是先使用后声明，没有违反规则
 
+可以用之际额保存了对象地址的变量获取‘name’
 
+这种办法简称为引用
 
+函数调用时，把this给你，把person给this，就相当于把person给你
 
-
+this就是最终调sayHi的对象
 
 函数对象的自身属性
 
@@ -1396,6 +1712,12 @@ let person = {
 函数对象的共有属性
 
 'call'/'apply'/'bind'等
+
+
+
+所有的函数都有一个prototype属性（区别于保存从构造函数继承属性地址的prototype）
+
+prototype属性中都有一个constructor属性
 
 
 
@@ -1608,11 +1930,21 @@ fn实例是由Function函数构造的，
 
 * [`Object.prototype.__proto__`已废弃](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)
 
+可以借用   帮助理解
+
 
 
 [原型文档](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Object_prototypes)
 
 
+
+
+
+
+
+Object.prototype是本来就有的，是所有对象的根，值为null，没有构造函数
+
+它没有原型
 
 
 
