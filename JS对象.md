@@ -54,7 +54,7 @@ console.log({'name': 'frank','age':18})
 
 #### 2）特殊的key
 
-* 数字做属性名
+* **数字**做属性名
 
   ```js
   let obj = {
@@ -138,22 +138,31 @@ Object.values(obj)
 Object.entries(obj)
 ```
 
-> 以上都是以数组形式打印，这种方式不会打印共有属性
+> 以上都是以**数组**形式打印，这种方式不会打印共有属性
 
 
 
-### （2）查看是否拥有某个属性
+### （2）查看某个属性是否存在
 
 ```js
 'toString' in obj
 
 obj.hasOwnProperty('toString')
+
+'toString' in obj && !obj.hasOwnProperty('toString')
 ```
 
 * `in`查看是否在obj里，但是不能判断是自身属性还是共有属性
 * `hasOwnProperty`函数可以判断是否是自身属性
+* 两个结合一下就可以判断是自身数字能够还是共有属性
 
 
+
+#### 注意点
+
+`obj.xxx === undefined` 并不能判断某个属性是否存在，因为没有该属性是undefined，该属性的值存在且值为undefined也成立
+
+![1650191501899](E:\Blog\JS对象.assets\1650191501899.png)
 
 ### （3）查看单个属性
 
@@ -180,17 +189,15 @@ obj.key
 
 * obj.name 等价于 obj['name']，不等价与obj[name]    name是字符串而不是变量
 
-```js
-let name = 'frank'
+  ```js
+  let name = 'frank'
+  
+  obj[name] === obj['frank']
+  ```
 
-obj[name] === obj['frank']
-```
+  
 
-
-
-
-
-* 问题：使person的所有属性被打印出来，log里面填什
+* **题目**：使person的所有属性被打印出来，log里面填什么
 
   选项：
 
@@ -228,14 +235,20 @@ obj.name = 'jack'    //name是字符串
 
 obj['name'] = 'jack'   
 
-obj[name] = 'jack'    //错误，name是变量，值不确定
-
 obj['na'+'me'] = 'jack'
 
-let key = 'name';obj[key] = 'jack'
+let key = 'name';obj[key] = 'jack'  //key是变量，值为'name'
+```
+
+#### 错误点
+
+```js
+obj[name] = 'jack'    //错误，name是变量，值不确定
 
 let key = 'name';obj.key = 'jack'  //错，obj.key === obj['key']
 ```
+
+
 
 
 
@@ -413,7 +426,7 @@ Object.assign(obj,{age:18,gender:'man'})
 
   
 
-  **this**是构造出来的实例对象，在被构造之前不知道叫什么，this来道题
+  **this**是构造出来的实例对象，在被构造之前不知道叫什么，this来代替
 
   
 
@@ -440,55 +453,67 @@ Object.assign(obj,{age:18,gender:'man'})
   square.getLength()
   ```
 
-  
-  
-  
-  
+
+
+
+
+class语法
+
   语法1：
-  
-  ```
+
+  ```js
   class Person{
       sayHi(name){}
-      // 等价于
-      sayHi: function(name){} 
       // 注意，一般我们不在这个语法里使用箭头函数
   }
+  
+  
   //等价于
   function Person(){}
   Person.prototype.sayHi = function(name){}
   ```
-  
-  语法2：注意冒号变成了等于号
-  
-  ```
+
+  语法2：
+
+  ```js
   class Person{
     sayHi = (name)=>{} // 注意，一般我们不在这个语法里使用普通函数，多用箭头函数
   }
+  
+  
   // 等价于
   function Person(){
       this.sayHi = (name)=>{}
   }
   ```
 
-对象为什么要分类
+语法1和语法2的区别在于一个使用箭头函数，一个使用普通函数
 
-对象需要分类
+箭头函数没有this，所以不会挂到构造函数的prototype属性上，而是会直接挂到新生成的对象上
 
-有很多对象拥有一样的属性和行为，需要把它们分为同一类，创建类似对象就很方便
+![1650193494270](E:\Blog\JS对象.assets\1650193494270.png)
 
-但是还有很多对象拥有其他的属性和行为
 
-所以就需要不同的分类
 
-比如 Array 、Function 
 
-Object创建出来的对象是最没特点的对象
+
+
+
+## 1. JS对象分类
+
+对象需要分类：
+
+* 有很多对象拥有一样的属性和行为，需要把它们分为同一类，创建类似对象就很方便
+
+* 但是还有很多对象拥有其他的属性和行为，所以就需要不同的分类
+  * 比如 Array 、Function 、Date、RegExp等
+
+* Object创建出来的对象是最没特点的对象
 
 
 
 类是针对于对象的分类，有无数种
 
-常见的有Array、Function、Date、RegExp等
 
 
 
@@ -497,114 +522,17 @@ Object创建出来的对象是最没特点的对象
 
 
 
+## 2. new
 
-## 1. new
+new X() 做了四件事：
 
+* 创建空对象
 
+* 为空对象关联原型，原型地址指定为 `X.prototype`
 
-new X() 自动做了四件事
+* 将空对象作为**`this`**关键字运行构造函数
 
-* 自动创建空对象
-
-* 自动为空对象关联原型，原型地址指定为 `X.prototype`
-
-* 自动将空对象作为`this`关键字运行构造函数
-
-* 自动`return this`
-
-
-
-## 2. 构造函数
-
-function f1(){}
-
-console.dir(f1)
-
-f1.prototype.constructor === f1
-
-
-
-
-
-this**是构造出来的实例对象，在被构造之前不知道叫什么，this来道题
-
-共用可以是函数，可以是属性
-
-
-
-   ```js
-function Person(name,gender){
-    this.name = name
-    this.gender = gender
-}
-Person.prototype.age = function(){console.log('18')}
-Person.prototype.nationality = function(){console.log('中国')}
-
-let person1 = new Person('小红','女')
-let person1 = new Person('小明','男')
-   ```
-
-
-
-构造函数X
-
-X函数本身负责给对象本身添加属性
-
-X.prototype 对象负责保存对象的共用属性
-
-
-
-这个prototype用来存放手动写给它的共有属性
-
-与构造函数提供的原型的prototype是不同的
-
-
-
-每个函数都有prototype属性 （除了箭头函数）
-
-每个prototype都有constructor属性
-
-constructor属性保存了对应的函数的地址
-
-如果一个函数不是构造函数，它的prototype属性暂时没用
-
-如果一个对象不是函数，那么它一般来说没有prototype属性，但这个对象一般一定会有`__proto__`属性
-
-
-
-
-
-对象是由函数构造的
-
-  `Object.__proto__ === Function.prototype`
-
-`Object.__proto__.__proto__ === Function.prototype.__proto__ === Object.prototype`
-
-`Object.__proto__.__proto__ .__proto__ === Object.prototype.__proto__  === null`
-
-函数是由函数构造的，函数的原型也是对象
-
-浏览器创造了函数，并指定为自己构造了自己
-
-
-
-
-
-window是Window构造的
-
-可以通过constructor属性看出构造者
-
-
-
-window.Object 是 window.Function 构造的
-
-所有的函数都是window.Function构造的
-
-
-
-window.Function是由window.Function构造的
-
-浏览器构造了Function，然后指定它的构造者是自己
+* `return this
 
 
 
@@ -614,50 +542,58 @@ window.Function是由window.Function构造的
 
 # 四、数组对象
 
-数组对象
+## 1. JS数组定义
 
-JS其实没有真正的数组，知识用对象模拟数组
+JS其实没有真正的数组，只是用对象模拟数组
 
 JS的数组不是典型数组
 
-典型的数组：
-
-元素的数据类型相同
-
-使用连续的内存存储
-
-通过数字下标获取元素
 
 
-
-但JS的的数组
-
-元素的数据类型可以不同
-
-内存不一定是连续的（对象是随机存储的）
-
-不能通过数字下标，而是通过字符串下标
-
-通过数字取到数组元素是因为JS会调用1.toString方法先变成字符串再穿进去
-
-arr[(1).toString()] ===  arr[1]
-
-这意味着可以有任何可以
-
-比如：
-
-```js
-let arr = [1,2,3]
-arr['xxx'] = 1
-```
+* 典型的数组：
+  * 元素的数据类型相同
+  * 使用连续的内存存储
+  * 通过数字下标获取元素
 
 
 
+* JS数组
+
+  * 元素的数据类型可以不同
+
+  * 内存不一定是连续的（对象是随机存储的）
+
+  * 不能通过数字下标，而是通过字符串下标
+
+  * 这意味着可以有任何key
+
+    > 通过数字取到数组元素是因为JS会调用1.toString方法先变成字符串再传进去
+    >
+    > ```js
+    > let arr = [1,2,3]
+    > arr[(1).toString()] ===  arr[1]
+    > arr['xxx'] = 1
+    > ```
 
 
-## 创建数组
 
-创建一个数组
+![1650195144580](E:\Blog\JS对象.assets\1650195144580.png)
+
+
+
+> 有一个问题：为什么`for`遍历和直接打出`arr`，数组的`length`都为`3`，但是用`Object.keys()`打印出`keys`就有四个呢？
+>
+> ​        答：最后添加的`'xxx'`是为arr添加的一个属性，而不是表示存储顺序的下标，所以，下标的0、1、2、3等是不能更改的，所以`keys`有四个，但是`length`没有增加
+
+
+
+
+
+
+
+## 2. 创建数组
+
+### （1）声明一个数组
 
 ```js
 let arr = [1,2,3]
@@ -665,382 +601,443 @@ let arr = [1,2,3]
 let arr = new Array(1,2,3) // 元素为1,2,3，是上一句的正规写法
 
 let arr = new Array(3)   //长度为3
+```
 
-//合并两个数组，得到新数组，原有的两个数组也存在
+
+
+
+
+### （2）衍生一个数组
+
+```js
+//合并
 arr1.concat(arr2)
 
-//截取一个数组的一部分，变成一个新数组，并不改变原来的数组
-arr1.slice(1)//从第二个元素开始
+//截取
+arr1.slice(1)  //从第二个元素开始截取
 arr1.slice(0)  // 全部截取，复制一个数组
 ```
 
-JS只提供浅拷贝
+* 以上两种方法都不会改变原数组，只会生成新数组
+* JS只提供**浅拷贝**
 
 
 
-转化 
+### （3）转化一个数组
 
-使用字符串创建一个数组，split，分隔
+* **`split()`**分隔，使用**字符串**创建一个数组，
+
+  ```js
+  let arr = '1,2,3'.split(',')
+  
+  let arr = '1,2,3'.split('') //空字符串
+  ```
+
+  ![1650196472188](E:\Blog\JS对象.assets\1650196472188.png)
+
+
+
+
+
+* **`Array.from()`**转化
+
+  把不是数组的东西尝试变成数组
+
+  从哪里得到一个数组
+
+  并不是都可以变成数组，要有一定的条件：
+
+  * 一个对象有`0,1,2,3`，这样的下标和`length`就可以变成数组
 
 ```js
-let arr = '1,2,3'.split(',')
+//数字
+Arrey.from(123)        //F
 
-let arr = '1,2,3'.split('') //空字符串
+//字符串
+Arrey.from('123')     //T
+Arrey.from('name')    //T
 
-Array.from('123')//把不是数组的东西尝试变成数组，从哪里得到一个数组，并不是都可以变成数组，要有一定的条件一个对象有0,1,2,3，这样的下标和length就可以变成数组
-```
+//布尔
+Array.from(true)      //F
 
-
-
-
-
-
-
-```js
-Arrey.from(123)
-
-Arrey.from('123')
-
-Array.from(true)
-
-Array.fron({0:'a',1:'b',2:'c'})
-
-Array.fron({0:'a',1:'b',2:'c',length:3}) //这种从其他地方转化的数组没有继承数组的原型链，成为伪数组
+//对象
+Array.fron({0:'a',1:'b',2:'c'})             //F
+Array.fron({0:'a',1:'b',2:'c',length:3})    //T
 ```
 
  
 
 
 
+### 伪数组
 
+* 没有数组共有属性的数组就是伪数组
 
-伪数组
+  （伪数组的原型链中并没有数组的原型）
 
-没有数组共有属性的数组就是伪数组
+  ```html
+  <body>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+  </body>
+  ```
 
-let divList = document.querySelectoyAll('div')
+  ```js
+  let divList = document.querySelectorAll('div')
+  console.log(divList)
+  ```
 
-伪数组的原型链中并没有数组的原型
+  会发现是数组的形式，但是点看并没有数组的方法，使用push、pop等数组方法会报错
 
+  ![1650203391857](E:\Blog\JS对象.assets\1650203391857.png)
 
+  只是创建了一个对象，没有构建数组的原型
 
-```html
-<body>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-</body>
-```
+  
 
+* 使用`Array.from`自己构建
 
+  `let divArray = Array.from(divList)`
 
-```js
-let divList = document.querySelectoyAll('div')
-console.log(divList)
-```
+  打印出`divArray`就会有数组的原型链
 
-会发现是数组的形式，但是点看并没有数组的方法，使用push、pop等数组方法会报错
-
-divList.push(4)
-
-
-
-只是创建了一个对象，没有构建数组的原型
-
-使用Array.from自己构建
-
-let divArray = Array.from(divList)
-
-再打印出结构就会有数组的原型链
+  ![1650203303187](E:\Blog\JS对象.assets\1650203303187.png)
 
 
 
 
 
+## 3. 增删改查数组中的元素
 
+### （1）删
 
-
-
-
-
-数组对象的自身属性
-
-'0'/'1'/'2'   等下标
-
-'length'   长度
-
-注意属性名没有数字，只有字符串
-
-
-
-## 增删改查数组中的元素
-
-### 删
+#### 1）推荐用法
 
 ```js
-let arr = ['a','b','c']
-delete arr['0']
-arr //[empty,'b','c']
+//删除头部元素
+arr.shift ()     //提档
+
+//删除尾部元素
+arr.pop()  //弹出
+
+//删除中间元素
+arr.splice(index,1)            //删除index处的一个元素
+arr.splice(index,2,'x')        //删除index处的2个元素并在删除位置添加‘x’
+arr.splice(index,1,'x','y')    //在删除位置添加‘x’和‘y’
 ```
 
-数组的长度并没有变
-
-这是对象的删除方法，
-
-稀疏数组 没有好处，只有bug
-
-长度比元素多
+* 以上三种方法**返回**的都是被删元素
+* `arr.shift()`和`arr.pop()`不接受参数，只删除一个元素
 
 
 
-通过改length删元素
+####  2）不推荐的方法
 
-arr.length = 1
+可以删除，会有习惯使用到以下方法，但不推荐使用
 
-图
+* 使用对象的方法：`delete`
 
-是可以的
+  ```js
+  let arr = ['a','b','c']
+  delete arr['0']
+  arr          //[empty,'b','c'],length:3
+  ```
 
-但是！！不要随便改length
+  * 数组的长度并没有变
 
+  * 稀疏数组 ：长度比元素多，没有好处，只有bug
 
+  
 
-以上两种方式不推荐
+* 通过改`length`删元素
 
+  `arr.length = 1`
 
+  是可以的
 
-删除头部元素
-
-arr.shift ()  // arr被修改，并返回被删元素     shift 提档
-
-shift不需要参数
-
-删除尾部元素
-
-arr.pop()  // arr被修改，并返回被删元素    pop弹出
-
-删除中间元素
-
-arr.splice(index,1)      //   删除index的一个元素
-
-arr.splice(index,1,'x')   //并在删除位置添加‘x’
-
-arr.splice(index,1,'x','y')  //
-
-第一个参数是要开始删的元素的下标，
-
-第二个参数是要删除的元素的数量
-
-第三个及之后参数是在删除位置要添加的元素
-
-不删除在某个位置直接添加？？？
-
-
-
-### 查
-
-查看所有属性名
-
-普通对象的方法不适用
-
-let arr = [1,2,3,4,5];arr.x = 'xxx'
-
-Object.keys(arr)
-
-Object.values(srr)
-
-for(let key in arr){
-
-console.log(`${key}:${arr[key]}`)
-
-}
+  会从数组尾部删除超出length的元素
 
 
 
 
 
-数组遍历
+### （2）查
 
-查看数字（字符串）属性名和值
+#### 1）遍历
 
+##### ① for
+
+```js
 for (let i = 0; i < arr.length; i++){
-
-console.log(`${i}:${arr[i]}`)
-
+    console.log(`${i}:${arr[i]}`)
 }
-
-要自己让i从0增长到length-1
-
-arr.forEach(function(item,index){
-
-console.log(`${index}:${item}`)
-
-})
-
-也可以使用forEach 、 map等原型上的函数
-
-自己写个forEach  接受三个参数
-
-```js
-function forEach(array,fn){
-    for(let i=0;i<array.length;i++){
-        fn(array[i],i,array)
-    }
-}
-
-forEach(['a','b','c'],function(x,y,z){console.log(x,y,array)})
 ```
 
 
 
-自己进行个优化
+##### ②forEach
 
-function forEach(array){
-    for(let i=0;i<array.length;i++){
-        function fn(x,y,z){console.log(x,y,array)}
-        fn(array[i],i)
-    }
-}
+```js
+arr.forEach(function(item,index){
+    console.log(`${index}:${item}`)
+})
+```
 
-forEach(['a','b','c'])
+* 理解forEach
 
+  手写forEach
 
+  ```js
+  function forEach(array,fn){
+      for(let i=0;i<array.length;i++){
+          fn(array[i],i,array)
+      }
+  }
+  
+  forEach(['a','b','c'],function(x,y,z){console.log(x,y,array)})
+  ```
 
-forEach用用for访问array的每一项
+  forEach用for访问array的每一项
 
-对每一项调用fn(array[i],i,array)
-
-
-
-for和forEach区别
-
-for是个关键字，功能更强大
-
-后面是个块级作用域
-
-for里面有break和continue
-
-
-
-foreach只是个函数
-
-后面是个函数作用域
+  对每一项调用fn(array[i],i,array)
 
 
 
+##### ③for和forEach区别
+
+* for是个关键字，功能更强大
+
+  跟着块级作用域
+
+  for里面有break和continue
 
 
-查看单个属性
 
+* foreach只是个函数
+
+  跟着函数作用域
+
+
+
+#### 2）单独查找/查看
+
+```js
+//查看单个属性
 let arr = [111,222,333]
-
 arr[0]
 
-查找某个元素是否在数组里
 
+//查找某个元素是否在数组里
 arr.indexOf(item)   //存在返回索引，否则返回-1
 
-使用条件查找元素
 
+//条件查找
 arr.find(item=>item%2 === 0)   //找第一个偶数
-
-使用条件查找元素的索引
-
 arr.findIndex(item => item%2 === 0)// 找第一个偶数的索引
-
-find方法会返回第一个找到的元素
-
-findIndex 会返回定义个找到的元素的下标
-
-
-
-
-
-索引越界
-
-使用并不存在的索引
-
-arr[arr.length]  === undefined
-
-arr[-1] === undefined
-
-举例
-
-```js
-for(let i= 0;i<=arr.length;i++){
-    console.log(arr[i].toString())
-}
 ```
 
-报错`Cannot read property 'toString'of undefined`
-
-意思是读取了undefined的toString属性，x.toString()其中x如果是undefined就报这个错
+`find()`和`findIndex()`都只会返回找到的第一个
 
 
 
+#### 3）不推荐的方法
+
+可以查找/查看，会有习惯使用到以下方法，但不推荐使用
+
+* 对象方法查看所有属性名和值
+
+  ```js
+  let arr = [1,2,3,4,5];arr.x = 'xxx'
+  
+  Object.keys(arr)      //['0','1','2','3','4','5','x']
+  Object.values(arr)     //[1,2,3,4,5,'xxx']
+  ```
+
+  
+
+* `for(let…in…){}`
+
+  ```js
+  for(let key in arr){
+      console.log(`${key}:${arr[key]}`)
+  }
+  ```
+
+  
+
+不适用，以上两种方法都会把属性以及索引都找出来
+
+
+
+* 索引越界
+
+  使用并不存在的索引
+
+  举例：
+
+  * `arr[arr.length]  === undefined`
+
+  * `arr[-1] === undefined`
+
+    ```js
+    for(let i= 0;i<=arr.length;i++){
+        console.log(arr[i].toString())
+    }
+    ```
+
+    报错`Cannot read property 'toString'of undefined`
+
+    意思是读取了`undefined`的`toString`属性，`x.toString()`其中`x`如果是`undefined`就报这个错
+
+  `arr[index]`最大只能到`arr.length-1`,`index`是从`0`开始的
 
 
 
 
 
 
-### 增
 
 
 
-在尾部加元素
+### （3）增
 
-(arr.x = 'x'  单个元素单独赋值)
+#### 1）推荐用法
 
-不推荐这样改，因为如果改一个较大的数字，就直接length也会变很大
-
-
-
-arr.push(newItem) //修改arr，返回新长度
-
+```js
+//尾部
+arr.push(newItem) 
 arr.push(item1,item2)   
 
-在头部加元素
 
+//头部
 arr.unshift(newItem)
-
 arr.unshift(item1,item2)
 
-在中间添加元素
 
+//中间
 arr.splice(index,0,'x')
-
 arr.splice(index,0,'x','y')
+```
 
-对已有的元素直接进行修改
-
-arr.[1] = 666
-
+`arr.push()`和`arr.unshift()`都会修改arr，返回新长度
 
 
-### 改
+
+#### 2）不推荐用法
+
+`arr[x]= 'x' `( 单个元素单独赋值）
+
+不推荐这样加，因为如果改一个较大的数字，就直接length也会变很大,就搞成系数数组了
+
+![1650208303412](E:\Blog\JS对象.assets\1650208303412.png)
+
+
+
+### （4）改
+
+#### 1）reverse
 
 反转顺序
 
-arr.reverse()     //修改了原来的数组，并没有生成新的数组
+`arr.reverse()`
 
-把字符串翻转
+![1650212873011](E:\Blog\JS对象.assets\1650212873011.png)
 
-let s = 'abcdef'
+修改了原来的数组，并没有生成新的数组，返回修改后的新数组
 
-s.split('').reverse().join('')
+* 题目：把字符串反转
 
-换成数组，翻转，再换成字符串
+  ```js
+  let s = 'abcdef'
+  s.split('').reverse().join('')
+  ```
+
+  
+
+#### 2）sort
+
+自定义顺序，按照传入的比较方法，进行比较
+
+可以对**数组**内任意可以用**数值**表示的元素进行比较
+
+sort默认会通过**ASCII**码进行先后排序
+
+* 可以使用**b-a**的方式进行从大到小的排序
+
+* 可以通过函数，给元素赋值，指定比较方法
+
+```js
+let arr = [4,2,7,9,1]
+arr.sort()  //[1,2,4,7,9]
+
+arr.sort(function(a,b){
+    if(a>b){
+        return 1
+    }else if(a === b){
+        return 0
+    }else{
+        return -1
+    }
+}) // 给定参考值，从小到大排序，等价于
+arr.sort((a,b) => a-b)
+
+//从大到小
+arr.sort((a,b) => b-a)
+```
+
+* 对象中的数值进行比较
+
+```js 
+let arr = [{name:'小红',score:95},{name:'小明',score:98},{name:'小兰',score:100}]
+
+arr.sort(function(a,b){
+    if(a.score>b.score){
+        return 1
+    }else if(a.score === b.score){
+        return 0
+    }else{
+        return -1
+    }
+})//等价于
+arr.sort((a,b)=>a.scaor-b.score)
+```
+
+* 字符串按长度排序
+
+```js
+let s = ['abcde','abcdeffg']
+s.sort((a,b)=>a.length-b.length)
+```
+
+* 字符串按先后顺序排序（ASCII码）
+
+```js
+let s = 'gsjgaklk'
+Array.from(s).sort().join('').toString()
+```
+
+
+
+#### 3）map
+
+#### 4）filter
+
+#### 5）reduce
+
+
+
+
+
+
+
+对已有的元素直接进行修改
+
+arr[1] = 666 
 
 
 
 自定义顺序
-
-sort 没有参数时默认从小到大
-
-可以通过函数，给元素赋值，指定比较方法
-
-arr.sort((a,b)=> a-b)
 
 
 
@@ -1173,39 +1170,11 @@ arr.reduce((result,item) =>{
 
 
 
-forEach
-
-```js
-function forEach(arrar,fn){
-    for(let i = 0; i<array.length; i++){
-        fn(array[i],i,array)
-    }
-}
-```
-
-forEach用for访问array的每一项
-
-对每一项调用fn(array[i],i,array)
 
 
 
 
-
-
-
-数组对象的共用属性
-
-'push'/'pop'/'shift'/'unshift'/'join'等
-
-
-
-
-
-
-
-
-
-## 五、函数对象
+# 五、函数对象
 
 定义一个函数
 
@@ -1254,6 +1223,104 @@ let f4 = (x,y) => ({name:x,age:y})// 直接返回对象会出错，要加圆括�
 ```js
 let f = new function('x','y','return x+y')
 ```
+
+- `
+
+
+
+## 3. 构造函数
+
+function f1(){}
+
+console.dir(f1)
+
+f1.prototype.constructor === f1
+
+
+
+
+
+**this**是构造出来的实例对象，在被构造之前不知道叫什么，this来代替
+
+共用可以是函数，可以是属性
+
+
+
+```js
+function Person(name,gender){
+    this.name = name
+    this.gender = gender
+}
+Person.prototype.age = function(){console.log('18')}
+Person.prototype.nationality = function(){console.log('中国')}
+
+let person1 = new Person('小红','女')
+let person1 = new Person('小明','男')
+```
+
+
+
+构造函数X
+
+X函数本身负责给对象本身添加属性
+
+X.prototype 对象负责保存对象的共用属性
+
+
+
+这个prototype用来存放手动写给它的共有属性
+
+与构造函数提供的原型的prototype是不同的
+
+
+
+每个函数都有prototype属性 （除了箭头函数）
+
+每个prototype都有constructor属性
+
+constructor属性保存了对应的函数的地址
+
+如果一个函数不是构造函数，它的prototype属性暂时没用
+
+如果一个对象不是函数，那么它一般来说没有prototype属性，但这个对象一般一定会有`__proto__`属性
+
+
+
+
+
+对象是由函数构造的
+
+  `Object.__proto__ === Function.prototype`
+
+`Object.__proto__.__proto__ === Function.prototype.__proto__ === Object.prototype`
+
+`Object.__proto__.__proto__ .__proto__ === Object.prototype.__proto__  === null`
+
+函数是由函数构造的，函数的原型也是对象
+
+浏览器创造了函数，并指定为自己构造了自己
+
+
+
+
+
+window是Window构造的
+
+可以通过constructor属性看出构造者
+
+
+
+window.Object 是 window.Function 构造的
+
+所有的函数都是window.Function构造的
+
+
+
+window.Function是由window.Function构造的
+
+浏览器构造了Function，然后指定它的构造者是自己
+
+
 
 不能用，什么原因？？？
 
