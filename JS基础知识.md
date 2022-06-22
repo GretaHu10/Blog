@@ -323,10 +323,10 @@ if(a === 2)
 ```js
 switch(表达式){
     case "语句1":
-    case "语句2"：
-    break;
+    case "语句2":
+       break;
     case "语句:3":
-    break;
+       break;
     default:
 }
 ```
@@ -530,7 +530,7 @@ label标签没有引号
 
 
 
-![1649856640842](E:\Blog\JS基础知识.assets\1649856640842.png)
+![1649856640842](JS基础知识.assets\1649856640842.png)
 
 点击查看[文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/label)
 

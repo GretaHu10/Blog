@@ -283,7 +283,7 @@ $ git add index.html     # 提交当前目录下的index.html文件
 * 示例
 
 ```bash
-$ touch .gitignire   # 创建.gitignore文件，在文件中进行编辑
+$ touch .gitignore   # 创建.gitignore文件，在文件中进行编辑
 备忘录        #忽略以“备忘录”命名的文件
 *.txt        #忽略所有 .txt结尾的文件
 !1.txt       #1.txt文件不忽略

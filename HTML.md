@@ -564,6 +564,8 @@ color、button、checkbox多选框、email、file可选一个文件，mulyiple�
 
 * `nav`导航栏可以加列表链接地址等
 
+* `template`用来容纳其他各种标签[用法](https://github.com/FrankFang/wheels/blob/master/lib/dom/index.js)
+
 
 
 
